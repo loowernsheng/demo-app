@@ -99,3 +99,82 @@ var myTodo = new NewTodo({title:'title', id:2});
 var myTodos = new NewTodosCollection({myTodo});
 console.log(myTodos.length);
 
+var todos = new Backbone.Collection();
+todos.add([
+    { title : 'go to belgium', completed : false},
+    { title : 'go to usa', completed : false},
+    { title : 'go to usa', completed : false}
+]);
+todos.forEach(function(model) {
+    console.log(model.get('title'));
+});
+
+var ourObject = {};
+_.extend(ourObject, Backbone.Events);
+ourObject.on('dance', function(msg) {
+    console.log('triggered dance move');
+});
+ourObject.trigger('dance', 'testing');
+
+var View = Backbone.View.extend({
+    
+    el : '#todo',
+    
+    events: {
+        'click [type="checkbox"]' : 'clicked',
+    },
+    
+    initialize: function () {
+        
+        // bind to DOM event using jQuery
+        this.$el.click(this.jqueryClicked);
+
+        // bind to API event
+        this.on('apiEvent', this.callback);
+    },
+    
+    clicked: function(event) {
+        console.log("events handler for " + this.el.outerHTML);
+        this.trigger('apiEvent', event.type);
+    },
+    
+    // 'this' is handling DOM element
+    jqueryClicked: function(event) {
+        console.log("jQuery handler for " + this.outerHTML);
+    },
+    
+    callback: function(eventType) {
+        console.log("event type was " + eventType);
+    }
+    
+    
+});
+
+var view = new View();
+
+var TodoRouter = Backbone.Router.extend({
+    
+    routes : {
+        "about" : "showAbout",
+        "search/:query" : "searchTodos",
+        "search/:query/p:page" : "searchTodos"
+    },
+    
+    showAbout : function() {
+    
+    },
+    
+    searchTodos : function(query, page) {
+        var page_number = page || 1;
+        console.log("Page number: " + page_number + " of the results for todos containing the word: " + query);
+    }
+    
+});
+
+var myTodoRouter = new TodoRouter();
+
+Backbone.history.start();
+
+
+
+
