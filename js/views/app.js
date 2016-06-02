@@ -8,6 +8,7 @@ app.AppView = Backbone.View.extend({
     statsTemplate : _.template($('#stats-template').html()),
     
     initialize : function() {
+                
         this.allCheckbox = this.$('#toggle-all')[0];
         this.$input = this.$('#new-todo');
         this.$footer = this.$('#footer');
@@ -32,6 +33,7 @@ app.AppView = Backbone.View.extend({
     },
     
     render: function() {
+        
       var completed = app.Todos.completed().length;
       var remaining = app.Todos.remaining().length;
 
