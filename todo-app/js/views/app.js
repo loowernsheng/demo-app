@@ -8,7 +8,11 @@ app.AppView = Backbone.View.extend({
     statsTemplate : _.template($('#stats-template').html()),
     
     initialize : function() {
+<<<<<<< HEAD:js/views/app.js
                 
+=======
+        
+>>>>>>> 8312cb669c620ff8f49b939ab01184447a539157:todo-app/js/views/app.js
         this.allCheckbox = this.$('#toggle-all')[0];
         this.$input = this.$('#new-todo');
         this.$footer = this.$('#footer');
@@ -61,6 +65,7 @@ app.AppView = Backbone.View.extend({
     addOne : function(todo) {
         
         var view = new app.TodoView({ model: todo });
+        console.log(view.render().$el);
         $('#todo-list').append(view.render().el);
     
     },
